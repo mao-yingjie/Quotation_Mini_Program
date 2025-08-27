@@ -1,3 +1,5 @@
+# 项目结构
+```
 contractor-starter/
 ├─ pyproject.toml                 # 依赖与可执行入口（contractor 命令）
 ├─ README.md                      # openSUSE 安装与快速开始
