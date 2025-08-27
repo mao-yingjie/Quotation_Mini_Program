@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+*.log
+contracts/**
+!.gitkeep
+.env
+.mypy_cache/
+.pytest_cache/
+dist/
+build/
+.machines/
+.DS_Store

@@ -1,0 +1,19 @@
+
+\documentclass[12pt]{article}
+\usepackage{xeCJK}
+\setCJKmainfont{Noto Serif CJK SC}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{longtable}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=black,urlcolor=blue}
+
+\begin{document}
+\begin{center}
+{\LARGE \textbf{ {{ title }} }}\\[1em]
+版本：{{ version }}\quad 合同编号：{{ document_id }}\\
+签署日期：{{ effective_date or "未定" }}\\
+\end{center}
+
+{{ body }}
+
+\end{document}

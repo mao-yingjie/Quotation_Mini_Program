@@ -1,0 +1,35 @@
+
+title: 采购合同（示例）
+version: "0.1.0"
+effective_date: 2025-08-27
+document_id: SAMPLE-001
+
+party:
+  name: 上海甲方科技有限公司
+  country: CN
+
+counterparty:
+  name: 苏州乙方信息技术有限公司
+  country: CN
+
+amount:
+  currency: CNY
+  value: 123456.78
+
+scope: |
+  乙方向甲方提供企业级合同自动化系统软件一套，含部署、培训与一年质保服务。具体明细见附件清单。
+
+payment_terms: |
+  预付款 30%，交付验收合格后支付 70%。付款币种为人民币（CNY）。
+
+delivery_terms: |
+  自合同生效之日起 30 个自然日完成交付，甲方测试验收通过视为交付完成。
+
+ipr_confidentiality: |
+  双方对合作中产生的文档、代码、数据负有保密义务，未经对方书面许可不得向第三方披露。
+
+dispute_resolution: |
+  因本合同产生的争议，双方应先友好协商；协商不成的，提交上海仲裁委员会按其仲裁规则仲裁。
+
+others: |
+  本合同未尽事宜，双方可签订补充协议，与本合同具有同等法律效力。

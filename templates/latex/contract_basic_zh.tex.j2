@@ -1,0 +1,37 @@
+
+{% extends "base.tex" %}
+{% block body %}
+
+{% set amt_minor = (amount.value * 100)|int -%}
+{% set money_num = money_str(amt_minor, amount.currency, "zh_CN") -%}
+
+\section*{甲乙双方}
+甲方（采购方）：{{ party.name }}（{{ party.country or "CN" }}）\\
+乙方（供货方）：{{ counterparty.name }}（{{ counterparty.country or "CN" }}）\\[0.5em]
+
+\section*{金额与币种}
+本合同金额为：\textbf{ {{ money_num }} }。
+
+\section*{标的与服务范围}
+{{ scope }}
+
+\section*{付款方式}
+{{ payment_terms }}
+
+\section*{交付与验收}
+{{ delivery_terms }}
+
+\section*{知识产权与保密}
+{{ ipr_confidentiality }}
+
+\section*{争议解决}
+{{ dispute_resolution }}
+
+\section*{其他条款}
+{{ others }}
+
+\section*{签署}
+甲方代表：\underline{\hspace{8em}} \quad 日期：\underline{\hspace{6em}} \\
+乙方代表：\underline{\hspace{8em}} \quad 日期：\underline{\hspace{6em}} \\
+
+{% endblock %}
