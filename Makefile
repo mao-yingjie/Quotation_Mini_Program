@@ -1,9 +1,13 @@
 .PHONY: install init-db
 
-# Install dependencies including runtime and development extras
+# ---------------------------------------
+# Makefile 用于封装项目常用命令
+# ---------------------------------------
+
+# 安装运行和开发依赖
 install:
 	poetry install -E runtime -E dev
 
-# Initialize the application's database
+# 初始化应用数据库
 init-db:
 	poetry run contractor init-db
