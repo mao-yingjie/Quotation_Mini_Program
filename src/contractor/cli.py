@@ -1,3 +1,4 @@
+# CLI 命令模块：提供合作方、合同及报表的命令行操作
 """合同管理的命令行工具，提供合作方管理、合同生成与报表等功能。"""
 
 # 导入标准库与第三方库
@@ -14,7 +15,7 @@ from .services.templates import available_templates
 from .services.render import render_tex, compile_pdf
 from .services.converter import tex_to_docx
 from .services.versioning import commit_all
-from .services.reports import totals_by_partner
+from .services.reports import totals_by_partner, totals_by_period, export_csv
 from .utils.paths import ROOT, CONTRACTS_DIR
 
 # 创建 Typer 应用
@@ -230,8 +231,45 @@ def contract_update(
 @app.command("report-totals")
 def report_totals(currency: str = "CNY"):
     """按合作方统计合同金额"""
-    totals = totals_by_partner(currency=currency)
-    print(json.dumps(totals, ensure_ascii=False, indent=2))
+    totals = totals_by_partner(currency=currency)  # 汇总金额
+    print(json.dumps(totals, ensure_ascii=False, indent=2))  # 输出结果
+
+
+@app.command("reports")
+def reports_cmd(
+    kind: str = typer.Option("partner", "--kind", help="partner or period"),
+    fmt: str = typer.Option("html", "--format", help="html or csv"),
+    out: Path | None = typer.Option(
+        None, "--out", file_okay=True, dir_okay=False, help="输出文件路径"
+    ),
+    currency: str = typer.Option("CNY", "--currency"),
+):
+    """生成报表并以 HTML 或 CSV 输出"""
+    # 根据不同维度生成汇总数据
+    if kind == "period":
+        totals = totals_by_period(currency=currency)
+        title = "Totals by Period"
+    else:
+        totals = totals_by_partner(currency=currency)
+        title = "Totals by Partner"
+    # 根据输出格式生成文件或直接打印
+    if fmt == "csv":
+        path = out or Path(f"{kind}_report.csv")
+        export_csv(totals, path)
+        print(f"[green]CSV written to {path}[/green]")
+    else:
+        rows = "\n".join(
+            f"<tr><th>{k}</th><td>{v}</td></tr>" for k, v in totals.items()
+        )
+        html = (
+            f"<html><head><meta charset='utf-8'><title>{title}</title></head>"
+            f"<body><table>{rows}</table></body></html>"
+        )
+        if out:
+            out.write_text(html, encoding="utf-8")
+            print(f"[green]HTML written to {out}[/green]")
+        else:
+            print(html)
 
 @app.command("repo-commit")
 def repo_commit(message: str = typer.Option("Update artifacts")):
