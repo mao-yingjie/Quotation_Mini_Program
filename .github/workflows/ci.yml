@@ -1,0 +1,42 @@
+name: CI
+
+# CI 工作流配置文件：在推送和 PR 时运行检查
+
+on:
+  # 当推送到 main 分支或发起 PR 时触发
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 检出仓库代码
+      - uses: actions/checkout@v4
+      # 设置 Python 环境
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      # 安装运行与开发依赖
+      - name: Install dependencies
+        run: |
+          pip install .[runtime,dev] build
+      # 执行代码静态检查
+      - name: Lint
+        run: ruff src tests
+      # 运行测试并收集覆盖率
+      - name: Test
+        run: coverage run -m pytest
+      # 输出覆盖率报告
+      - name: Coverage report
+        run: coverage report
+      # 构建发行包
+      - name: Build artifacts
+        run: python -m build
+      # 上传构建产物
+      - name: Upload dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
