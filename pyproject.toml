@@ -12,7 +12,13 @@ requires-python = ">=3.10"
 license = "MIT"
 authors = [{name = "You"}]
 
-dependencies = [
+# Core package has no hard runtime dependencies; they are provided via
+# optional "runtime" extras to keep the base install minimal.
+dependencies = []
+
+[project.optional-dependencies]
+# Dependencies required to run the application
+runtime = [
   "typer>=0.12.3",
   "rich>=13.7.1",
   "Jinja2>=3.1.4",
@@ -29,11 +35,14 @@ dependencies = [
   "pandas>=2.2.2",
   "openpyxl>=3.1.5",
   "watchdog>=4.0.2",
-  "PyPDF2>=3.0.1"
+  "PyPDF2>=3.0.1",
 ]
 
-[project.optional-dependencies]
-dev = ["pytest>=8.2.2", "ruff>=0.6.9"]
+# Tooling and test dependencies for development
+dev = [
+  "pytest>=8.2.2",
+  "ruff>=0.6.9",
+]
 
 [project.scripts]
 contractor = "contractor.cli:app"
