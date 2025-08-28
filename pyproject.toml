@@ -1,3 +1,6 @@
+# ------------------------------
+# 项目构建与依赖配置文件
+# ------------------------------
 
 [build-system]
 requires = ["hatchling"]
@@ -12,7 +15,12 @@ requires-python = ">=3.10"
 license = "MIT"
 authors = [{name = "You"}]
 
-dependencies = [
+# 核心包不包含固定运行依赖，使用可选的 "runtime" 扩展保持最小安装
+dependencies = []
+
+[project.optional-dependencies]
+# 运行应用所需依赖
+runtime = [
   "typer>=0.12.3",
   "rich>=13.7.1",
   "Jinja2>=3.1.4",
@@ -29,11 +37,14 @@ dependencies = [
   "pandas>=2.2.2",
   "openpyxl>=3.1.5",
   "watchdog>=4.0.2",
-  "PyPDF2>=3.0.1"
+  "PyPDF2>=3.0.1",
 ]
 
-[project.optional-dependencies]
-dev = ["pytest>=8.2.2", "ruff>=0.6.9"]
+# 开发阶段的工具与测试依赖
+dev = [
+  "pytest>=8.2.2",
+  "ruff>=0.6.9",
+]
 
 [project.scripts]
 contractor = "contractor.cli:app"
