@@ -44,6 +44,7 @@ runtime = [
 dev = [
   "pytest>=8.2.2",
   "ruff>=0.6.9",
+  "alembic>=1.13.1",
 ]
 
 [project.scripts]
