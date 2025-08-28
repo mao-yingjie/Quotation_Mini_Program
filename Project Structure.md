@@ -20,8 +20,7 @@ contractor-starter/
 │  ├─ latex/
 │  │  ├─ base.tex                 # 公共排版（XeCJK，适配中文）
 │  │  └─ contract_basic_zh.tex.j2 # 示例合同（Jinja2 + LaTeX）
-│  └─ pandoc/
-│     └─ docx-reference.docx      # 可选：Word 样式参考
+│  └─ pandoc/                     # 可选：存放 Word 样式参考 docx
 ├─ data/
 │  └─ sample_contract.yml         # 示例数据（甲乙方、金额、条款等）
 ├─ contracts/                     # 生成产物输出目录（按ID分文件夹）
