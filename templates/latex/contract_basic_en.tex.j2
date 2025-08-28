@@ -1,0 +1,46 @@
+% 英文版基础合同模板
+{% extends "base.tex" %}
+{% block body %}
+
+{% set amt_minor = (amount.value * 100)|int -%} % 计算金额的最小单位
+{% set money_num = money_str(amt_minor, amount.currency, "en_US") -%} % 格式化货币字符串
+
+% 各方信息
+\section*{Parties}
+Party (Buyer): {{ party.name }} ({{ party.country or "US" }})\\
+Counterparty (Seller): {{ counterparty.name }} ({{ counterparty.country or "US" }})\\[0.5em]
+
+% 金额与货币
+\section*{Amount and Currency}
+The contract value is: \textbf{ {{ money_num }} }.
+
+% 工作范围
+\section*{Scope of Work}
+{{ scope }}
+
+% 付款条款
+\section*{Payment Terms}
+{{ payment_terms }}
+
+% 交付与验收
+\section*{Delivery and Acceptance}
+{{ delivery_terms }}
+
+% 知识产权与保密
+\section*{Intellectual Property \& Confidentiality}
+{{ ipr_confidentiality }}
+
+% 争议解决
+\section*{Dispute Resolution}
+{{ dispute_resolution }}
+
+% 其他条款
+\section*{Other Terms}
+{{ others }}
+
+% 签署区
+\section*{Signatures}
+Party Rep: \underline{\hspace{8em}} \quad Date: \underline{\hspace{6em}} \\
+Counterparty Rep: \underline{\hspace{8em}} \quad Date: \underline{\hspace{6em}} \\
+
+{% endblock %}
